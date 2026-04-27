@@ -6,8 +6,6 @@
 
  **RESOURCES**
 
-MiniLibX documentation by Harm Smits: https://harm-smits.github.io/42docs/libs/minilibx
-
 Prim's and Kruskal's Algorithms - Greedy Method: https://www.youtube.com/watch?v=4ZlRH0eK-qQ\
 
 Graph Traversals - BFS & DFS: https://www.youtube.com/watch?v=pcKY4hjDrxk&list=TLPQMDcwNDIwMjankNRSAo0DTg&index=2
