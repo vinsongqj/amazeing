@@ -13,6 +13,7 @@ class MazeRenderer:
                        "\033[37m"]
         self.c_idx = 0
         self.show_path = False
+        self.green = "\033[38;5;22m"
         self.red = "\033[31m"
         self.dim = "\033[2m"
         self.reset = "\033[0m"
@@ -55,7 +56,7 @@ class MazeRenderer:
                 west = f"{c}█" if (v & 8) else " "
                 marker = "   "
                 if (x, y) == entry:
-                    marker = f"{self.red}███"
+                    marker = f"{self.green}███"
                 elif (x, y) == exit_p:
                     marker = f"{self.red}███"
                 elif (x, y) in self.gen.locked_cells:
