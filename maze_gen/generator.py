@@ -1,13 +1,10 @@
 import random
-from collections import deque
 from typing import List, Tuple, Set, Optional
+from .constants import MOVEMENTS, NORTH, EAST, SOUTH, WEST, OPPOSITES
+from .solver import MazeSolver
 
 
 class MazeGenerator:
-
-    N, E, S, W = 1, 2, 4, 8
-    OPPOSITE = {N: S, S: N, E: W, W: E}
-    MOVEMENTS = {N: (0, -1), E: (1, 0), S: (0, 1), W: (-1, 0)}
 
     def __init__(self, width: int, height: int,
                  seed: Optional[int] = None) -> None:
@@ -48,7 +45,8 @@ class MazeGenerator:
             else:
                 self._apply_42_mask()
 
-        self.grid = [[15 for _ in range(self.width)]
+        full_block = NORTH | EAST | SOUTH | WEST
+        self.grid = [[full_block for _ in range(self.width)]
                      for _ in range(self.height)]
 
         parent = list(range(self.width * self.height))
@@ -64,44 +62,31 @@ class MazeGenerator:
             for x in range(self.width):
                 if (x, y) in self.locked_cells:
                     continue
-                if x < self.width - 1 and (x + 1, y) not in self.locked_cells:
-                    walls.append((x, y, x + 1, y, self.E))
-                if y < self.height - 1 and (x, y + 1) not in self.locked_cells:
-                    walls.append((x, y, x, y + 1, self.S))
+
+                for direction in [EAST, SOUTH]:
+                    dx, dy = MOVEMENTS[direction]
+                    nx, ny = x + dx, y + dy
+
+                    if 0 <= nx < self.width and 0 <= ny < self.height:
+                        if (nx, ny) not in self.locked_cells:
+                            walls.append((x, y, nx, ny, direction))
+
         random.shuffle(walls)
+
         for x1, y1, x2, y2, d in walls:
             r1 = find(y1 * self.width + x1)
             r2 = find(y2 * self.width + x2)
+
             if r1 != r2:
                 parent[r1] = r2
                 self.grid[y1][x1] &= ~d
-                self.grid[y2][x2] &= ~self.OPPOSITE[d]
+                self.grid[y2][x2] &= ~OPPOSITES[d]
             elif not perfect and random.random() < 0.1:
                 self.grid[y1][x1] &= ~d
-                self.grid[y2][x2] &= ~self.OPPOSITE[d]
+                self.grid[y2][x2] &= ~OPPOSITES[d]
 
-    def solve(self, start: Tuple[int, int], end: Tuple[int, int]) -> str:
-
-        queue = deque([start])
-        visited = {start: ""}
-        while queue:
-            curr = queue.popleft()
-            if curr == end:
-                return visited[curr]
-            x, y = curr
-            for d, (dx, dy) in self.MOVEMENTS.items():
-                if not (self.grid[y][x] & d):
-                    nxt = (x + dx, y + dy)
-                    if nxt not in visited:
-                        visited[nxt] = visited[curr] + self._get_d_char(d)
-                        queue.append(nxt)
-        return ""
-
-    def _get_d_char(self, d: int) -> str:
-        if d == 1:
-            return "N"
-        if d == 2:
-            return "E"
-        if d == 4:
-            return "S"
-        return "W"
+    def solve(self, start: Tuple[int, int] = (0, 0),
+              end: Optional[Tuple[int, int]] = None):
+        if end is None:
+            end = (self.width - 1, self.height - 1)
+        return MazeSolver.solve(self.grid, start, end)

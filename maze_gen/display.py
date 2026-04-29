@@ -2,21 +2,28 @@ import os
 import sys
 import tty
 import termios
-from typing import Tuple, Any
+from typing import Tuple, Set, Any
+from .constants import COLORS, MOVEMENTS, DIRECTION_LABELS
 
 
 class MazeRenderer:
 
     def __init__(self, generator: Any) -> None:
         self.gen = generator
-        self.colors = ["\033[32m", "\033[36m", "\033[35m", "\033[33m",
-                       "\033[37m"]
+        self.colors = [
+            COLORS["green"],
+            COLORS["cyan"],
+            COLORS["magenta"],
+            COLORS["yellow"],
+            COLORS["white"]
+        ]
+        self.path_color = COLORS["red"]
+        self.start_color = COLORS["forest"]
+        self.end_color = COLORS["red"]
+        self.logo_color = COLORS["dim"]
+        self.reset = COLORS["reset"]
         self.c_idx = 0
         self.show_path = False
-        self.green = "\033[38;5;22m"
-        self.red = "\033[31m"
-        self.dim = "\033[2m"
-        self.reset = "\033[0m"
 
     def _get_char(self) -> str:
         fd = sys.stdin.fileno()
@@ -29,25 +36,32 @@ class MazeRenderer:
         return ch
 
     def _get_path_set(self, start: Tuple[int, int],
-                      end: Tuple[int, int]) -> set:
+                      end: Tuple[int, int]) -> Set[Tuple[int, int]]:
         path_str = self.gen.solve(start, end)
+
+        if not path_str:
+            return {start}
+
         res = {start}
         cx, cy = start
-        move = {"N": (0, -1), "E": (1, 0), "S": (0, 1), "W": (-1, 0)}
+        char_to_bit = {v: k for k, v in DIRECTION_LABELS.items()}
+
         for char in path_str:
-            dx, dy = move[char]
-            cx += dx
-            cy += dy
-            res.add((cx, cy))
+            if char in char_to_bit:
+                bit = char_to_bit[char]
+                dx, dy = MOVEMENTS[bit]
+                cx += dx
+                cy += dy
+                res.add((cx, cy))
         return res
 
     def render(self, entry: Tuple[int, int], exit_p: Tuple[int, int]) -> None:
 
         os.system('clear' if os.name != 'nt' else 'cls')
+
         c = self.colors[self.c_idx]
-        p_set = set()
-        if self.show_path:
-            p_set = self._get_path_set(entry, exit_p)
+        p_set = self._get_path_set(entry, exit_p) if self.show_path else set()
+
         for y in range(self.gen.height):
             top, mid = "", ""
             for x in range(self.gen.width):
@@ -56,24 +70,26 @@ class MazeRenderer:
                 west = f"{c}█" if (v & 8) else " "
                 marker = "   "
                 if (x, y) == entry:
-                    marker = f"{self.green}███"
+                    marker = f"{self.start_color}███"
                 elif (x, y) == exit_p:
-                    marker = f"{self.red}███"
+                    marker = f"{self.end_color}███"
                 elif (x, y) in self.gen.locked_cells:
-                    marker = f"{self.dim}███{self.reset}{c}"
+                    marker = f"{self.logo_color}███{self.reset}{c}"
                 elif (x, y) in p_set:
-                    marker = f"{self.red} • {self.reset}{c}"
+                    marker = f"{self.path_color} • {self.reset}{c}"
                 mid += f"{west}{marker}"
             print(f"{top}{c}█{self.reset}")
             print(f"{mid}{c}█{self.reset}")
+
         print(f"{c}{'████' * self.gen.width}█{self.reset}")
 
         if self.gen.error_msg:
-            print(f"\n\033[91m{self.gen.error_msg}\033[0m")
+            print(f"\n{COLORS['red']}{self.gen.error_msg}{self.reset}")
 
     def handle_input(self) -> bool:
         print("\n[R] Regen  [P] Path  [C] Color  [Q] Quit")
         ch = self._get_char().lower()
+
         if ch == "r":
             self.gen.generate()
         elif ch == "p":
