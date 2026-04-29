@@ -1,13 +1,42 @@
+"""
+MAZE EXPORTER
+
+This file takes the generated maze and saves it
+to a .txt file. It converts the grid numbers
+into hex characters and records the start and
+end coordinates and the solved path string.
+The .txt file will be used by another program
+to recreate the exact same maze.
+"""
+
 from typing import Tuple, Any
 
 
 class MazeExporter:
 
+    """
+    The class used to export maze data to a .txt file.
+    """
+
     def __init__(self, generator: Any) -> None:
+
+        """
+        Sets up the exporter with the maze generator.
+        """
+
         self.gen = generator
 
     def save_to_file(self, filename: str, entry: Tuple[int, int],
                      exit_p: Tuple[int, int]) -> None:
+
+        """
+        Saves maze layout and solution to a .txt file.
+
+        1. Creates a new file.
+        2. Converts grid numbers into hex and writes.
+        3. Writes entry and exit coordinates.
+        3. Writes the solution path string.
+        """
 
         try:
             path_str = self.gen.solve(entry, exit_p)

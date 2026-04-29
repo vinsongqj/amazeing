@@ -1,3 +1,14 @@
+"""
+MAZE DISPLAYER AND CONTROLLER
+
+This file handles displaying the maze,
+coloring the walls/logo/path with ANSI
+color codes and listens to keyboard
+inputs to either regenerate the maze/
+toggle the path visibility/ change the
+maze color or quit the program.
+"""
+
 import os
 import sys
 import tty
@@ -8,14 +19,25 @@ from .constants import COLORS, MOVEMENTS, DIRECTION_LABELS
 
 class MazeRenderer:
 
+    """
+    The class used to display the maze and handle keyboard input.
+    It keeps track of the colors used and whether the solution
+    path should be displayed.
+    """
+
     def __init__(self, generator: Any) -> None:
+
+        """
+        Sets up colors and links the generator to the maze.
+        """
+
         self.gen = generator
         self.colors = [
+            COLORS["white"],
             COLORS["green"],
             COLORS["cyan"],
             COLORS["magenta"],
             COLORS["yellow"],
-            COLORS["white"]
         ]
         self.path_color = COLORS["red"]
         self.start_color = COLORS["forest"]
@@ -25,19 +47,13 @@ class MazeRenderer:
         self.c_idx = 0
         self.show_path = False
 
-    def _get_char(self) -> str:
-        fd = sys.stdin.fileno()
-        old = termios.tcgetattr(fd)
-        try:
-            tty.setraw(fd)
-            ch = sys.stdin.read(1)
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old)
-        return ch
-
     def _get_path_set(self, start: Tuple[int, int],
                       end: Tuple[int, int]) -> Set[Tuple[int, int]]:
         path_str = self.gen.solve(start, end)
+
+        """
+        Turns the letter string from the solver into a list of coordinates.
+        """
 
         if not path_str:
             return {start}
@@ -56,6 +72,14 @@ class MazeRenderer:
         return res
 
     def render(self, entry: Tuple[int, int], exit_p: Tuple[int, int]) -> None:
+
+        """
+        Clears the terminal and draws the maze line by line
+        by looping through the grid to check the bitwise
+        switches (1, 2, 4, 8) to decide where to draw walls.
+        It also renders the entry and exit points, path dots
+        and 42 logo.
+        """
 
         os.system('clear' if os.name != 'nt' else 'cls')
 
@@ -86,9 +110,29 @@ class MazeRenderer:
         if self.gen.error_msg:
             print(f"\n{COLORS['red']}{self.gen.error_msg}{self.reset}")
 
+    def _get_key_press(self) -> str:
+
+        """
+        Listens for single key presses.
+        """
+
+        fd = sys.stdin.fileno()
+        old = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+        return ch
+
     def handle_input(self) -> bool:
+
+        """
+        Determines what to do based on key presses.
+        """
+
         print("\n[R] Regen  [P] Path  [C] Color  [Q] Quit")
-        ch = self._get_char().lower()
+        ch = self._get_key_press().lower()
 
         if ch == "r":
             self.gen.generate()

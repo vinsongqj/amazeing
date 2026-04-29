@@ -1,3 +1,11 @@
+"""
+MAZE SOLVER
+
+This file uses Breadth-First Search (BFS) to find
+the shortest path from the start of the maze to
+the exit.
+"""
+
 from collections import deque
 from typing import Tuple, List, Dict
 from .constants import MOVEMENTS, DIRECTION_LABELS
@@ -5,8 +13,17 @@ from .constants import MOVEMENTS, DIRECTION_LABELS
 
 class MazeSolver:
 
+    """
+    This class calculates the solution for any given maze grid.
+    """
+
     @staticmethod
     def _get_d_char(d: int) -> str:
+
+        """
+        A helper function to turn a direction number into a letter.
+        """
+
         mapping = {1: "N", 2: "E", 4: "S", 8: "W"}
         return mapping.get(d, "")
 
@@ -14,6 +31,24 @@ class MazeSolver:
     def solve(grid: List[List[int]],
               start: Tuple[int, int],
               end: Tuple[int, int]) -> str:
+
+        """
+        Finds the shortest path using BFS,
+        a search algorithm that spreads out
+        in all directions at once, and through
+        this method if an exit is found it is the
+        absolute shortest path.
+
+        Process:
+        1. A queue is created to manage the cells to
+           check next, starting from the entry coordinates.
+        2. All 4 directions (1, 2, 4, 8) are checked to see
+           if there are any open walls.
+        3. If a wall is open and unvisited, it is marked as
+           visited and the current path is stored.
+        4. The search continues spreading out until it hits
+           the exit coordinates or runs out of paths.
+        """
 
         if not grid or not grid:
             return ""

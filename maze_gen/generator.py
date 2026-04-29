@@ -1,3 +1,12 @@
+"""
+MAZE GENERATOR
+
+This file generates the maze structure by using Kruskal's Algorithm,
+starting with a solid block of walls and carving paths
+through them. It also handles the masking of the 42 logo
+within the walls of the maze.
+"""
+
 import random
 from typing import List, Tuple, Set, Optional
 from .constants import MOVEMENTS, NORTH, EAST, SOUTH, WEST, OPPOSITES
@@ -6,8 +15,19 @@ from .solver import MazeSolver
 
 class MazeGenerator:
 
+    """
+    The class that creates and stores the maze grid,
+    manages the maze dimensions, randomizes seeds for
+    different layouts and "locks" cells to mask the 42 logo.
+    """
+
     def __init__(self, width: int, height: int,
                  seed: Optional[int] = None) -> None:
+
+        """
+        Sets up basic size and random settings for new maze.
+        """
+
         self.width = width
         self.height = height
         self.error_msg = ""
@@ -16,7 +36,14 @@ class MazeGenerator:
         if seed is not None:
             random.seed(seed)
 
-    def _apply_42_mask(self) -> None:
+    def _apply_42(self) -> None:
+
+        """
+        Calculates exactly which cells (x, y) should
+        be solid blocks to form the '42' pattern and
+        locks them so the generator doesn't carve
+        through them.
+        """
 
         self.locked_cells.clear()
         mx = self.width // 2
@@ -35,6 +62,16 @@ class MazeGenerator:
 
     def generate(self, perfect: bool = True, use_logo: bool = True) -> None:
 
+        """
+        Uses Kruskal's Algorithm to build a random maze
+        by breaking down walls. Starting with a full block
+        of walls it creates a list of all possible walls
+        and shuffles them, removing them one by one while
+        ensuring loops aren't created unless 'perfect' is
+        set to False. It also skips all the locked cells
+        to keep the 42 logo visible.
+        """
+
         self.locked_cells.clear()
         self.error_msg = ""
 
@@ -43,7 +80,7 @@ class MazeGenerator:
                 self.error_msg = ("Error: Maze must be at least 15x10 "
                                   "to generate 42 pattern.")
             else:
-                self._apply_42_mask()
+                self._apply_42()
 
         full_block = NORTH | EAST | SOUTH | WEST
         self.grid = [[full_block for _ in range(self.width)]
@@ -87,6 +124,12 @@ class MazeGenerator:
 
     def solve(self, start: Tuple[int, int] = (0, 0),
               end: Optional[Tuple[int, int]] = None):
+
+        """
+        Finds the path through the maze using MazeSolver
+        from solver.py.
+        """
+
         if end is None:
             end = (self.width - 1, self.height - 1)
         return MazeSolver.solve(self.grid, start, end)
