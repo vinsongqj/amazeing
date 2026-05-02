@@ -87,7 +87,7 @@ Despite the directional bias of DFS and its lack of dead ends, the choice was we
 * Handled the terminal rendering, output file exporting and user input.
 * Built a working skeleton of the main to test maze generation, solving and display.
 * Ensuring the .txt output file is written according to subject requirements.
-* Editing the readme.
+* Edited the readme.
 
 ## Planning and Evolution of the Project
 
