@@ -4,7 +4,9 @@
 
  ## Description
 
- A-Maze-Ing is a maze generation algorithm project that generates a solveable maze and includes a reusable package `maze_gen`. Our program `a_maze_ing.py` works by reading a user-modified `config.txt` file and generates a maze based on the config parameters using Depth-First Search (Recursive Backtracking) while providing a solution using Breadth-First Search, then displaying it via terminal rendering while listening for user inputs to regenerate the maze / change maze color / display or hide the solution path. It writes a file with the reproducible seed in hexadecimal format upon exit, where each digit encodes which walls are closed, along with the entry and exit coordinates and the path solution string in N/E/S/W format.
+ A-Maze-Ing is a maze generation algorithm project that generates a solveable maze and includes a reusable package `maze_gen`. 
+ 
+ Our program `a_maze_ing.py` works by reading a user-modified `config.txt` file and generates a maze based on the config parameters using Depth-First Search (Recursive Backtracking) while providing a solution using Breadth-First Search, then displaying it via terminal rendering while listening for user inputs to regenerate the maze / change maze color / display or hide the solution path. It writes a file with the reproducible seed in hexadecimal format upon exit, where each digit encodes which walls are closed, along with the entry and exit coordinates and the path solution string in N/E/S/W format.
 
  ## Instructions
  ### Requirements
