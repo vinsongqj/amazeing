@@ -71,6 +71,28 @@ Despite the directional bias of DFS and its lack of dead ends, the choice was we
 
  ## Reusable Sections of Code
 
+ This project comes with a reusable package `maze_gen` that contains several modules:
+
+`MazeGenerator`: Generates grid data using DFS without visual representation.
+
+        from mazegen.generator import MazeGenerator
+
+`MazeSolver `: Finds the shortest path between 2 points of a grid using BFS.
+
+        from mazegen.solver import MazeSolver
+
+`MazeRenderer`: Handles terminal ASCII rendering and user input.
+
+        from mazegen.display import MazeRenderer
+
+`MazeExporter`: Handles file writing and formatting.
+
+        from mazegen.exporter import MazeExporter
+
+`constants`:  Stores shared constants.
+
+        from mazegen.constants import *insert constants here*
+
  ## Role Delegation
 
 **ryeong**
