@@ -75,23 +75,23 @@ Despite the directional bias of DFS and its lack of dead ends, the choice was we
 
 `MazeGenerator`: Generates grid data using DFS without visual representation.
 
-        from mazegen.generator import MazeGenerator
+    from mazegen.generator import MazeGenerator
 
 `MazeSolver `: Finds the shortest path between 2 points of a grid using BFS.
 
-        from mazegen.solver import MazeSolver
+    from mazegen.solver import MazeSolver
 
 `MazeRenderer`: Handles terminal ASCII rendering and user input.
 
-        from mazegen.display import MazeRenderer
+    from mazegen.display import MazeRenderer
 
 `MazeExporter`: Handles file writing and formatting.
 
-        from mazegen.exporter import MazeExporter
+    from mazegen.exporter import MazeExporter
 
 `constants`:  Stores shared constants.
 
-        from mazegen.constants import *insert constants here*
+    from mazegen.constants import *insert constants here*
 
  ## Role Delegation
 
