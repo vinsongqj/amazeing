@@ -18,16 +18,6 @@ class MazeSolver:
     """
 
     @staticmethod
-    def _get_d_char(d: int) -> str:
-
-        """
-        A helper function to turn a direction number into a letter.
-        """
-
-        mapping = {1: "N", 2: "E", 4: "S", 8: "W"}
-        return mapping.get(d, "")
-
-    @staticmethod
     def solve(grid: List[List[int]],
               start: Tuple[int, int],
               end: Tuple[int, int]) -> str:

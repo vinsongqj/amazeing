@@ -1,7 +1,7 @@
 PYTHON = python3
-PIP = pip 
 MAIN = a_maze_ing.py
 CONFIG = config.txt
+VENV_PYTHON = ./venv/bin/python
 
 #COLORS
 
@@ -15,22 +15,26 @@ RESET = \033[0m
 all: install
 
 install:
-	@echo "$(GREEN)Installing mazegen package...$(RESET)"
-	$(PIP) install .
+	@echo "$(GREEN)Creating virtual environment and installing dependencies...$(RESET)"
+	$(PYTHON) -m venv venv
+	@./venv/bin/pip install . flake8 mypy
 
 run:
 	@echo "$(GREEN)Launching A-Maze-Ing...$(RESET)"
-	$(PYTHON)	$(MAIN)	$(CONFIG)
+	$(VENV_PYTHON) $(MAIN) $(CONFIG)
 
 debug:
 	@echo "$(YELLOW)Debugging...$(RESET)"
-	$(PYTHON) -m pdb $(MAIN) $(CONFIG)
+	$(VENV_PYTHON) -m pdb $(MAIN) $(CONFIG)
 
 clean:
 	@echo "$(RED)Cleaning build artifacts...$(RESET)"
+	@rm -rf venv build/ dist/ *.egg-info
 	@rm -rf __pycache__
+	@rm -rf maze_gen/__pycache__
 	@rm -rf .mypy_cache
 	@rm -rf .pytest_cache
+	@find . -maxdepth 1 -type f -name "*.txt" ! -name "config.txt" -delete
 
 lint:
 	flake8 .

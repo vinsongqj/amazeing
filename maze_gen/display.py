@@ -49,11 +49,12 @@ class MazeRenderer:
 
     def _get_path_set(self, start: Tuple[int, int],
                       end: Tuple[int, int]) -> Set[Tuple[int, int]]:
-        path_str = self.gen.solve(start, end)
 
         """
         Turns the letter string from the solver into a list of coordinates.
         """
+
+        path_str = self.gen.solve(start, end)
 
         if not path_str:
             return {start}
@@ -121,6 +122,8 @@ class MazeRenderer:
         try:
             tty.setraw(fd)
             ch = sys.stdin.read(1)
+        except Exception:
+            ch = ""
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
         return ch
