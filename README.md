@@ -32,6 +32,7 @@
     make lint         # to run flake8 and mypy
     make lint-strict  # same as lint but with the --strict flag for mypy
     make clean        # removes build artifacts
+    make package      # creates the .whl file of the package to be reused
 
 4. To run the program without using `make run`:
 
