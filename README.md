@@ -14,7 +14,7 @@
  * pip
  * venv
 
- ### Installing the program
+ ### Installing the Program
 
  After cloning the repository:
 
@@ -113,16 +113,43 @@ Despite the directional bias of DFS and its lack of dead ends, the choice was we
 
 ## Planning and Evolution of the Project
 
+**Planning stage** 
+* Discussed the possible algorithms to use for the generation and solving.
+* Delegated the tasks among ourselves.
+* Shared learning resources to ensure consistent understanding between us.
+* Coordinated time availability to complete the project before the deadline.
+* Decided the directory structure and modularity of the project.
+
+**Building stage**
+* Created working version of the main for testing core functionality.
+* Worked on building a functional generator, solver, parser, display and exporter.
+* Kept each other updated on current progress and git pulled regularly to remain updated.
+
+**Polishing stage**
+* Implemented missing validation checks for edge cases.
+* Added docstrings and ensured they provided sufficient explanation.
+* Ensured that there were no redundancies and cleaned up messy code.
+* Final testing to make sure everything functioned as intended.
+* Edited the readme.
+
 ## What Worked and What Improved
+
+The DFS maze generation worked as intended, and separating the components into separate modules really helped for fixing bugs and reusability. Furthermore the structure of the project was kept relatively uncluttered with every file having its explicit purpose. What could be improved is the display of the path, which we opted to use dots for instead due to difficulty with rendering a solid line that follows the path within the terminal. While it was a possible fix, we decided that we did not have sufficient time to make radical changes and opted to go with the current method. We could have also improved this project by adding in animation and maybe even an option to change generation algorithms, but alas we lacked the time to implement such features.
 
 ## Resources
 
-[Graph Traversals - BFS & DFS](https://www.youtube.com/watch?v=pcKY4hjDrxk&list=TLPQMDcwNDIwMjankNRSAo0DTg&index=2)
+[Graph Traversals - BFS & DFS by Abdul Bari](https://www.youtube.com/watch?v=pcKY4hjDrxk&list=TLPQMDcwNDIwMjankNRSAo0DTg&index=2)
+[Geeksforgeeks](https://www.geeksforgeeks.org/dsa/depth-first-search-or-dfs-for-a-graph/)
+
 ## Tools Used
 
-**Generative AI** - Used to scrutinize our code for any overlooked error handling and edge cases, and general consultation about the pros and cons of each algorithm how the project should be executed.
+**Generative AI** - Used to scrutinize our code for any overlooked error handling and edge cases, general consultation about the pros and cons of each algorithm and how the project should be executed.
 
 **YouTube** - Used to educate ourselves about the topics required to take on the project (Kruskal's and BFS).
+
+**flake8 and mypy** - For linting.
+
+**Git** -For version control.
 
 
 
