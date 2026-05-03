@@ -141,7 +141,9 @@ What could be improved is the display of the path, which we opted to use dots fo
 ## Resources
 
 [Graph Traversals - BFS & DFS by Abdul Bari](https://www.youtube.com/watch?v=pcKY4hjDrxk&list=TLPQMDcwNDIwMjankNRSAo0DTg&index=2)
+
 [Geeksforgeeks (DFS)](https://www.geeksforgeeks.org/dsa/depth-first-search-or-dfs-for-a-graph/)
+
 [Geeksforgeeks (BFS)](https://www.geeksforgeeks.org/dsa/breadth-first-search-or-bfs-for-a-graph/)
 
 ## Tools Used
