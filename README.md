@@ -134,7 +134,9 @@ Despite the directional bias of DFS and its lack of dead ends, the choice was we
 
 ## What Worked and What Improved
 
-The DFS maze generation worked as intended, and separating the components into separate modules really helped for fixing bugs and reusability. Furthermore, the structure of the project was kept relatively uncluttered with every file having its explicit purpose. What could be improved is the display of the path, which we opted to use dots for instead due to difficulty with rendering a solid line that follows the path within the terminal. While it was a possible fix, we decided that we did not have sufficient time to make radical changes and opted to go with the current method. We could have also improved this project by adding in animation and maybe even an option to change generation algorithms, but alas we lacked the time to implement such features.
+The DFS maze generation worked as intended, and separating the components into separate modules really helped for fixing bugs and reusability. 
+
+Furthermore, the structure of the project was kept relatively uncluttered with every file having its explicit purpose. What could be improved is the display of the path, which we opted to use dots for instead due to difficulty with rendering a solid line that follows the path within the terminal. While it was a possible fix, we decided that we did not have sufficient time to make radical changes and opted to go with the current method. We could have also improved this project by adding in animation and maybe even an option to change generation algorithms, but alas we lacked the time to implement such features.
 
 ## Resources
 
