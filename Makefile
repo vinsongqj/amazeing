@@ -43,3 +43,8 @@ lint:
 lint-strict:
 	flake8 .
 	mypy --strict .
+
+package:
+	@echo "$(GREEN)Building wheel package...$(RESET)"
+	$(VENV_BIN) pip install build
+	$(VENV_BIN) python3 -m build
