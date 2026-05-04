@@ -70,6 +70,23 @@ PERFECT=True           # Bool that ensures one path if True, and creates loops i
 
 Despite the directional bias of DFS and its lack of dead ends, the choice was weighted upon the ease of implementation and time complexity. We also agreed that aesthetically, DFS seemed to fit what we were looking for (long snaking corridors that are easier to follow).
 
+### MazeGenerator Class
+
+Our generator is where we use the DFS/recursive backtracking logic. It begins by:
+1. Initializing a full block of solid cells according to grid dimensions.
+2. Designating cells with `_apply_42` to create an immutable boundary in the shape of the '42' pattern.
+3. Picking a random unvisited neighbor with `random.choice`.
+4. Flipping wall bits off using bitwise operators.
+5. Using `pop()` to backtrack the stack by 1 when encountering a dead end, and continues searching for paths.
+
+### MazeSolver Class
+
+For our solver, we used Breadth-First Search instead. Instead of prioritizing depth, it favors breadth, which means its search spans all directions and if the exit point is found we can be sure that it is the fastest possible solution. It begins by:
+1. Checking the cells' bits to see if they are open or closed, while marking them as visited to avoid looping.
+2. Backtracking like the generator if a dead end is encountered.
+3. Encoding the successful path into a string of directions "NESW".
+
+
  ## Reusable Sections of Code
 
  This project comes with a reusable package `maze_gen` that contains several modules:
