@@ -91,31 +91,27 @@ For our solver, we used Breadth-First Search instead. Instead of prioritizing de
 
  This project comes with a reusable package `maze_gen` that contains several modules:
 
-`MazeGenerator`: Generates grid data using DFS without visual representation.
+`MazeGenerator (Class)`: Generates grid data using DFS without visual representation.
 
     from mazegen.generator import MazeGenerator
 
-`MazeSolver `: Finds the shortest path between 2 points of a grid using BFS.
+`MazeSolver (Class)`: Finds the shortest path between 2 points of a grid using BFS.
 
     from mazegen.solver import MazeSolver
 
-`MazeRenderer`: Handles terminal ASCII rendering and user input.
+`MazeRenderer (Class)`: Handles terminal ASCII rendering and user input.
 
     from mazegen.display import MazeRenderer
 
-`MazeExporter`: Handles file writing and formatting.
+`MazeExporter (Class)`: Handles file writing and formatting.
 
     from mazegen.exporter import MazeExporter
-
-`constants`:  Stores shared constants.
-
-    from mazegen.constants import *insert constants here*
 
  ## Role Delegation
 
 **ryeong**
 
-* Created the config parser.
+* Created the config parser and added reproducibility via seed.
 * Modified the main to handle the parameters parsed and built upon the skeleton.
 * Implemented validation and error handling.
 * Reviewed code to ensure we were on the right track.
@@ -148,6 +144,7 @@ For our solver, we used Breadth-First Search instead. Instead of prioritizing de
 * Added docstrings and ensured they provided sufficient explanation.
 * Ensured that there were no redundancies and cleaned up messy code.
 * Final testing to make sure everything functioned as intended.
+* Added seed reproducibility from the config.txt due to earlier misinterpretation of the subject PDF.
 * Edited the readme.
 
 ## What Worked and What Improved
