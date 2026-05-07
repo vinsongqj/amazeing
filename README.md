@@ -111,7 +111,7 @@ To start using the modules:
 
 1. Run `make package`.
 2. A directory called `/dist` should be created.
-3. Copy the .whl file and paste it in the directory of the file you plan to import into.
+3. From `/dist`, copy the .whl file and paste it in the directory of the file you plan to import into.
 4. Run `pip install mazegen-1.0.0-py3-none-any.whl` (It is recommended to run within a virtual environment: `python -m venv venv` then `source venv/bin/activate`).
 5. Use the modules as demonstrated above.
 
