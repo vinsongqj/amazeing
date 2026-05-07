@@ -93,19 +93,19 @@ For our solver, we used Breadth-First Search instead. Instead of prioritizing de
 
 `MazeGenerator (Class)`: Generates grid data using DFS without visual representation.
 
-    from mazegen.generator import MazeGenerator
+    from maze_gen.generator import MazeGenerator
 
 `MazeSolver (Class)`: Finds the shortest path between 2 points of a grid using BFS.
 
-    from mazegen.solver import MazeSolver
+    from maze_gen.solver import MazeSolver
 
 `MazeRenderer (Class)`: Handles terminal ASCII rendering and user input.
 
-    from mazegen.display import MazeRenderer
+    from maze_gen.display import MazeRenderer
 
 `MazeExporter (Class)`: Handles file writing and formatting.
 
-    from mazegen.exporter import MazeExporter
+    from maze_gen.exporter import MazeExporter
 
 To start using the modules:
 
