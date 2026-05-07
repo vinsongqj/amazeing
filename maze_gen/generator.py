@@ -10,6 +10,8 @@ import random
 from typing import List, Tuple, Set, Optional
 from .constants import MOVEMENTS, NORTH, EAST, SOUTH, WEST, OPPOSITES
 from .solver import MazeSolver
+from maze_gen.validator import ConfigError
+import time
 
 
 class MazeGenerator:
@@ -75,11 +77,16 @@ class MazeGenerator:
         """
 
         self.locked_cells.clear()
+        min_width = 8
+        min_height = 7
         if use_logo:
-            if self.width < 15 or self.height < 10:
-                raise ValueError(f"Maze size ({self.width}x{self.height}) is "
-                                 "too small for the 42 logo. Minimum: 15x10.")
-            self._apply_42()
+            if self.width < 2 or self.height < 2:
+                raise ConfigError(f"Maze is too small")
+            elif self.width < min_width or self.height < min_height:
+                print("\nWARNING: Maze will generate with no 42 logo. (Too small)\n")
+                time.sleep(2)
+            else:
+                self._apply_42()
 
         full_block = NORTH | EAST | SOUTH | WEST
         self.grid = [[full_block for _ in range(self.width)]
@@ -127,4 +134,6 @@ class MazeGenerator:
 
         if end is None:
             end = (self.width - 1, self.height - 1)
+        if MazeSolver.solve(self.grid, start, end) == "":
+            raise ConfigError("Cannot find valid path to exit")
         return MazeSolver.solve(self.grid, start, end)
