@@ -81,9 +81,10 @@ class MazeGenerator:
         min_height = 7
         if use_logo:
             if self.width < 2 or self.height < 2:
-                raise ConfigError(f"Maze is too small")
+                raise ConfigError("Maze is too small")
             elif self.width < min_width or self.height < min_height:
-                print("\nWARNING: Maze will generate with no 42 logo. (Too small)\n")
+                print("\nWARNING: Maze will generate with no 42 logo. "
+                      "(Too small)\n")
                 time.sleep(2)
             else:
                 self._apply_42()
@@ -125,7 +126,7 @@ class MazeGenerator:
                 self.grid[ry][rx] &= ~random.choice([NORTH, EAST, SOUTH, WEST])
 
     def solve(self, start: Tuple[int, int] = (0, 0),
-              end: Optional[Tuple[int, int]] = None):
+              end: Optional[Tuple[int, int]] = None) -> Optional[str]:
 
         """
         Finds the path through the maze using MazeSolver

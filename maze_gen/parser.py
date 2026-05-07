@@ -51,8 +51,8 @@ def parse_raw_value(key: str, value: Any) -> Any:
 
 def validate_key(key: str) -> bool:
     valid_key_list = ['WIDTH', 'HEIGHT', 'ENTRY', 'EXIT',
-        'OUTPUT_FILE', 'PERFECT', 'SEED']
-    
+                      'OUTPUT_FILE', 'PERFECT', 'SEED']
+
     if key not in valid_key_list:
         return False
     return True
@@ -71,4 +71,3 @@ def extract_one_key_value_pair(split_line: list[str]) -> Tuple[str, str]:
         return (split_line[0], ph_value.strip())
     else:
         return (split_line[0], split_line[1].strip())
-        

@@ -34,6 +34,8 @@
     make clean        # removes build artifacts
     make package      # creates the .whl file of the package to be reused
 
+    # All 'make' commands will automatically create a virtual environment if none exists.
+
 4. To run the program without using `make run`:
 
         python3 a_maze_ing.py config.txt
@@ -52,6 +54,7 @@ ENTRY=0,0              # Entry coordinates
 EXIT=19,14             # Exit coordinates
 OUTPUT_FILE=maze.txt   # The file name of the output
 PERFECT=True           # Bool that ensures one path if True, and creates loops if False
+SEED=                  # This parameter should only be included if the maze needs to be reproduced, otherwise it has to be removed
 ```
 
  ## Maze Generation
@@ -131,6 +134,7 @@ To start using the modules:
 * Handled the terminal rendering, output file exporting and user input.
 * Built a working skeleton of the main to test maze generation, solving and display.
 * Ensuring the .txt output file is written according to subject requirements.
+* Linted and fixed all flake8 and mypy errors.
 * Edited the readme.
 
 ## Planning and Evolution of the Project

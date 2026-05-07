@@ -7,7 +7,7 @@ import maze_gen.validator as validator
 from maze_gen.validator import ConfigError
 
 
-def main():
+def main() -> None:
 
     if len(sys.argv) != 2:
         print("Usage: python3 a_maze_ing.py config.txt")
