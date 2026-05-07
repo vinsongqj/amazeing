@@ -107,6 +107,14 @@ For our solver, we used Breadth-First Search instead. Instead of prioritizing de
 
     from mazegen.exporter import MazeExporter
 
+To start using the modules:
+
+1. Run `make package`.
+2. A directory called `/dist` should be created.
+3. Copy the .whl file and paste it in the directory of the file you plan to import into.
+4. Run `pip install mazegen-1.0.0-py3-none-any.whl`
+5. Use the modules as demonstrated above.
+
  ## Role Delegation
 
 **ryeong**
